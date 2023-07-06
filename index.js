@@ -1,3 +1,4 @@
+var dotenv = require('dotenv').config();
 var express = require('express');
 var http = require('http');
 var cors = require('cors');
@@ -47,6 +48,6 @@ app.get('/proportion', cors(corsOptions), function(req,res){
 });
 
 // start the server
-server.listen(3000, function(){
-	console.log("Server listening on port: 3000");
+server.listen(process.env.UTANODES_APP_PORT, function(){
+	console.log("Server listening on port: " + process.env.UTANODES_APP_PORT);
 });
