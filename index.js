@@ -1,13 +1,15 @@
 var express = require('express');
 var http = require('http');
+var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
 
 var regressor = require('./regressor');
 
+//app.use(cors())
 // route @ /
 app.get('/', function(req,res){
-  	res.json({
+	res.json({
 		"Title": 'Regressor for UTA100 Planner',
 		"Usage": 'https://utaregressor.vercel.app/proportion?finishtime=[expected finish time]&reference=[dataset size]',
 		"Example":'https://utaregressor.vercel.app/proportion?finishtime=20&reference=100'
@@ -16,13 +18,23 @@ app.get('/', function(req,res){
 
 // route @ /about
 app.get('/about', function(req,res){
-  	res.json({
+	res.json({
 		"About": "Regressor for UTA100 Planner"
 	});
 });
 
-// route @ UTA Regressor
-app.get('/proportion', function(req,res){
+// configure the CORS options
+var corsOptions = {
+	origin: [
+		"https://utaplanner.vercel.app",
+		"http://localhost",
+		"http://localhost:8080",
+	],
+	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+// route @ UTA Regressor, CORS enable
+app.get('/proportion', cors(corsOptions), function(req,res){
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
