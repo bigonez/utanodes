@@ -2,12 +2,12 @@
   "name": "utanodes",
   "version": "0.0.1",
   "description": "UTA Nodes API of UTA100 Planner",
-  "main": "index.js",
+  "main": "src/app.js",
   "author": "Jun Zhang <bigonez@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "dependencies": {
     "better-sqlite3": "^8.4.0",
