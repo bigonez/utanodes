@@ -1,7 +1,4 @@
-const sqlite3 = require('better-sqlite3');
-const utaDb = new sqlite3('uta100_optimal.db3', {fileMustExist: false});
-
-const queryRegressor = function (finishTime, referSet) {
+const queryRegressor = function (utaDb, finishTime, referSet) {
 	// form the query
 	var optimalQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
 	if( referSet ) {

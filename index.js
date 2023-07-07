@@ -7,6 +7,10 @@ var server = http.createServer(app);
 
 var regressor = require('./regressor');
 
+const sqlite3 = require('better-sqlite3');
+const dbName = __dirname + '/uta100_optimal.db3';
+const utaDb = new sqlite3(dbName, {fileMustExist: true});
+
 //app.use(cors())
 // route @ /
 app.get('/', function(req,res){
@@ -41,7 +45,7 @@ app.get('/proportion', cors(corsOptions), function(req,res){
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
-	regressorData = regressor.queryRegressor(finishTime, reference)
+	regressorData = regressor.queryRegressor(utaDb, finishTime, reference)
 
 	res.json(Object.assign({
 		finishtime : finishTime,
@@ -52,4 +56,5 @@ app.get('/proportion', cors(corsOptions), function(req,res){
 // start the server
 server.listen(process.env.UTANODES_APP_PORT, function(){
 	console.log("Server listening on port: " + process.env.UTANODES_APP_PORT);
+	console.log("Current directory:", __dirname);
 });
