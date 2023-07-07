@@ -5,7 +5,7 @@ var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
 
-var regressor = require('./regressor');
+//var regressor = require('./regressor');
 
 //app.use(cors())
 // route @ /
