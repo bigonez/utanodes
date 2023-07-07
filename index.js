@@ -5,12 +5,13 @@ var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
 
-const regressor = require('./regressor');
+var regressor = require('./regressor');
+const sqlite3 = require('better-sqlite3');
 
 // form the database name
 const dbName = __dirname + process.env.UTANODES_APP_DB;
 // initial the database connection
-regressor.initDb(dbName)
+const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
 //app.use(cors())
 // route @ /
@@ -46,7 +47,7 @@ app.get('/proportion', cors(corsOptions), function(req,res){
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
-	regressorData = regressor.queryRegressor(finishTime, reference)
+	regressorData = regressor.queryRegressor(utaDb, finishTime, reference)
 
 	res.json(Object.assign({
 		finishtime : finishTime,

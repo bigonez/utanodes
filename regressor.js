@@ -1,11 +1,4 @@
-const sqlite3 = require('better-sqlite3');
-var utaDb = null;
-
-const initDb = function (dbname) {
-	utaDb = new sqlite3(dbname, {fileMustExist: true});
-}
-
-const queryRegressor = function (finishTime, referSet) {
+const queryRegressor = function (utaDb, finishTime, referSet) {
 	// form the query
 	var optimalQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
 	if( referSet ) {
@@ -34,6 +27,5 @@ const queryRegressor = function (finishTime, referSet) {
 }
 
 module.exports = {
-	initDb,
 	queryRegressor
 }
