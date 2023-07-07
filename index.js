@@ -5,19 +5,20 @@ var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
 
-var regressor = require('./regressor');
+const regressor = require('./regressor');
 
-const sqlite3 = require('better-sqlite3');
-const dbName = __dirname + '/uta100_optimal.db3';
-const utaDb = new sqlite3(dbName, {fileMustExist: true});
+// form the database name
+const dbName = __dirname + process.env.UTANODES_APP_DB;
+// initial the database connection
+regressor.initDb(dbName)
 
 //app.use(cors())
 // route @ /
 app.get('/', function(req,res){
 	res.json({
 		"Title": 'Regressor for UTA100 Planner',
-		"Usage": 'https://utaregressor.vercel.app/proportion?finishtime=[expected finish time]&reference=[dataset size]',
-		"Example":'https://utaregressor.vercel.app/proportion?finishtime=20&reference=100'
+		"Usage": 'https://utanodes.vercel.app/proportion?finishtime=[expected finish time]&reference=[dataset size]',
+		"Example":'https://utanodes.vercel.app/proportion?finishtime=20&reference=100'
 	});
 });
 
@@ -26,7 +27,7 @@ app.get('/about', function(req,res){
 	res.json({
 		"About": "Regressor for UTA100 Planner",
 		"Service Port": process.env.UTANODES_APP_PORT,
-		"Database": process.env.UTANODES_APP_DB
+		"Database": dbName
 	});
 });
 
@@ -45,7 +46,7 @@ app.get('/proportion', cors(corsOptions), function(req,res){
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
-	regressorData = regressor.queryRegressor(utaDb, finishTime, reference)
+	regressorData = regressor.queryRegressor(finishTime, reference)
 
 	res.json(Object.assign({
 		finishtime : finishTime,
@@ -56,5 +57,4 @@ app.get('/proportion', cors(corsOptions), function(req,res){
 // start the server
 server.listen(process.env.UTANODES_APP_PORT, function(){
 	console.log("Server listening on port: " + process.env.UTANODES_APP_PORT);
-	console.log("Current directory:", __dirname);
 });
