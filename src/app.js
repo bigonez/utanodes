@@ -5,11 +5,11 @@ var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
 
-var regressor = require('./regressor');
+var nodes = require('./nodes');
 const sqlite3 = require('better-sqlite3');
 
 // form the database name
-const dbName = __dirname + '/uta100_optimal.db3';
+const dbName = __dirname + process.env.UTANODES_APP_DB;
 // initial the database connection
 const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
@@ -17,7 +17,7 @@ const utaDb = new sqlite3(dbName, {fileMustExist: true});
 // route @ /
 app.get('/', function(req,res){
 	res.json({
-		"Title": 'Regressor for UTA100 Planner (Node.js version)',
+		"Title": 'Nodes API for UTA100 Planner',
 		"Usage": 'https://utanodes.vercel.app/proportion?finishtime=[expected finish time]&reference=[dataset size]',
 		"Example":'https://utanodes.vercel.app/proportion?finishtime=20&reference=100'
 	});
@@ -26,9 +26,11 @@ app.get('/', function(req,res){
 // route @ /about
 app.get('/about', function(req,res){
 	res.json({
-		"About": "Regressor for UTA100 Planner (Node.js version)",
+		"About": "Nodes API for UTA100 Planner",
+		"Environment": process.env.NODE_ENV,
 		"Service Port": process.env.UTANODES_APP_PORT,
-		"Database": dbName
+		"Working Path": process.cwd(),
+		"Database": dbName,
 	});
 });
 
@@ -42,17 +44,17 @@ var corsOptions = {
 	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-// route @ UTA Regressor, CORS enable
+// route @ UTA Nodes, CORS enable
 app.get('/proportion', cors(corsOptions), function(req,res){
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
-	regressorData = regressor.queryRegressor(utaDb, finishTime, reference)
+	nodesData = nodes.queryNodes(utaDb, finishTime, reference)
 
 	res.json(Object.assign({
 		finishtime : finishTime,
 		 reference : reference
-	}, regressorData));
+	}, nodesData));
 });
 
 // start the server
