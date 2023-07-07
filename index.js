@@ -9,7 +9,7 @@ var regressor = require('./regressor');
 const sqlite3 = require('better-sqlite3');
 
 // form the database name
-const dbName = __dirname + process.env.UTANODES_APP_DB;
+const dbName = __dirname + '/uta100_optimal.db3';
 // initial the database connection
 const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
