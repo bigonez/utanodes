@@ -9,8 +9,7 @@ var regressor = require('./regressor');
 const sqlite3 = require('better-sqlite3');
 
 // form the database name
-const dbName = __dirname + '/uta100_optimal.db3';
-const altDbName = __dirname + process.env.UTANODES_APP_DB;
+const dbName = __dirname + process.env.UTANODES_APP_DB;
 // initial the database connection
 const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
@@ -29,8 +28,7 @@ app.get('/about', function(req,res){
 	res.json({
 		"About": "Regressor for UTA100 Planner",
 		"Service Port": process.env.UTANODES_APP_PORT,
-		"Database": dbName,
-		"Alt. DB" : altDbName
+		"Database": dbName
 	});
 });
 
