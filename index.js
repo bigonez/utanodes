@@ -35,7 +35,7 @@ app.get('/about', function(req,res){
 // configure the CORS options
 var corsOptions = {
 	origin: [
-		"https://utaplanner.vercel.app",
+		"https://utaplanner.vercel.app (Node.js version)",
 		"http://localhost",
 		"http://localhost:8080",
 	],
