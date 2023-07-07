@@ -20,7 +20,9 @@ app.get('/', function(req,res){
 // route @ /about
 app.get('/about', function(req,res){
 	res.json({
-		"About": "Regressor for UTA100 Planner"
+		"About": "Regressor for UTA100 Planner",
+		"Service Port": process.env.UTANODES_APP_PORT,
+		"Database": process.env.UTANODES_APP_DB
 	});
 });
 
