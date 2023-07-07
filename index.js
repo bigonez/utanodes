@@ -17,7 +17,7 @@ const utaDb = new sqlite3(dbName, {fileMustExist: true});
 // route @ /
 app.get('/', function(req,res){
 	res.json({
-		"Title": 'Regressor for UTA100 Planner',
+		"Title": 'Regressor for UTA100 Planner (Node.js version)',
 		"Usage": 'https://utanodes.vercel.app/proportion?finishtime=[expected finish time]&reference=[dataset size]',
 		"Example":'https://utanodes.vercel.app/proportion?finishtime=20&reference=100'
 	});
