@@ -26,7 +26,7 @@ app.get('/', function(req,res){
 // route @ /about
 app.get('/about', function(req,res){
 	res.json({
-		"About": "Regressor for UTA100 Planner",
+		"About": "Regressor for UTA100 Planner (Node.js version)",
 		"Service Port": process.env.UTANODES_APP_PORT,
 		"Database": dbName
 	});
@@ -35,7 +35,7 @@ app.get('/about', function(req,res){
 // configure the CORS options
 var corsOptions = {
 	origin: [
-		"https://utaplanner.vercel.app (Node.js version)",
+		"https://utaplanner.vercel.app",
 		"http://localhost",
 		"http://localhost:8080",
 	],
