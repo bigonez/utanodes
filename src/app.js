@@ -18,8 +18,8 @@ const utaDb = new sqlite3(dbName, {fileMustExist: true});
 app.get('/', function(req,res){
 	res.json({
 		"Title": 'Nodes API for UTA100 Planner',
-		"Usage": 'https://utanodes.vercel.app/proportion?finishtime=[expected finish time]&reference=[dataset size]',
-		"Example":'https://utanodes.vercel.app/proportion?finishtime=20&reference=100'
+		"Usage": 'https://utanodes.vercel.app/nodes?finishtime=[expected finish time]&reference=[dataset size]',
+		"Example":'https://utanodes.vercel.app/nodes?finishtime=20&reference=100'
 	});
 });
 
@@ -45,7 +45,7 @@ var corsOptions = {
 }
 
 // route @ UTA Nodes, CORS enable
-app.get('/proportion', cors(corsOptions), function(req,res){
+app.get('/nodes', cors(corsOptions), function(req,res){
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
