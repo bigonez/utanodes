@@ -1,5 +1,5 @@
 const sqlite3 = require('better-sqlite3');
-const utaDb = new sqlite3('uta100_optimal.db3', {fileMustExist: true});
+const utaDb = new sqlite3('uta100_optimal.db3', {fileMustExist: false});
 
 const queryRegressor = function (finishTime, referSet) {
 	// form the query
