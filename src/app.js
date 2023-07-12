@@ -4,16 +4,24 @@ var http = require('http');
 var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
+var sqlite3 = require('better-sqlite3');
 
 var nodes = require('./nodes');
-const sqlite3 = require('better-sqlite3');
 
 // form the database name
 const dbName = __dirname + '/uta100_nodes.db3';
 // initial the database connection
 const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
+// load the middlewares
 //app.use(cors())
+if (process.env.NODE_ENV == 'development') {
+	var requestlogger = require('./requestlogger');
+
+	console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
+	app.use(requestlogger);
+}
+
 // route @ /
 app.get('/', function(req,res){
 	res.json({
@@ -59,5 +67,5 @@ app.get('/nodes', cors(corsOptions), function(req,res){
 
 // start the server
 server.listen(process.env.UTANODES_APP_PORT, function(){
-	console.log("Server listening on port: " + process.env.UTANODES_APP_PORT);
+	console.log(". server listening on port: " + process.env.UTANODES_APP_PORT);
 });
