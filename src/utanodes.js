@@ -1,5 +1,3 @@
-const express = require('express')
-const router = express.Router()
 const sqlite3 = require('better-sqlite3');
 
 // form the database name
@@ -40,7 +38,7 @@ const queryNodes = function (utaDb, finishTime, referSet) {
 	}
 }
 
-router.get('/', (req,res) => {
+const getNodes = function (req,res) {
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
@@ -50,6 +48,6 @@ router.get('/', (req,res) => {
 		finishtime : finishTime,
 		 reference : reference
 	}, nodesData));
-})
+}
 
-module.exports = router
+module.exports = getNodes
