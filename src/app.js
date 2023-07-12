@@ -47,7 +47,7 @@ var corsOptions = {
 }
 
 // route @ UTA Nodes, CORS enable
-app.use('/nodes', cors(corsOptions), utanodes);
+app.get('/nodes', cors(corsOptions), utanodes);
 
 // start the server
 server.listen(process.env.UTANODES_APP_PORT, function(){
