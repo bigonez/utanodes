@@ -1,3 +1,12 @@
+const express = require('express')
+const router = express.Router()
+const sqlite3 = require('better-sqlite3');
+
+// form the database name
+const dbName = __dirname + '/uta100_nodes.db3';
+// initial the database connection
+const utaDb = new sqlite3(dbName, {fileMustExist: true});
+
 const queryNodes = function (utaDb, finishTime, referSet) {
 	// form the query
 	var nodesQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
@@ -31,6 +40,16 @@ const queryNodes = function (utaDb, finishTime, referSet) {
 	}
 }
 
-module.exports = {
-	queryNodes
-}
+router.get('/', (req,res) => {
+	var finishTime = parseFloat(req.query.finishtime);
+	var reference  = parseInt(req.query.reference);
+
+	nodesData = queryNodes(utaDb, finishTime, reference)
+
+	res.json(Object.assign({
+		finishtime : finishTime,
+		 reference : reference
+	}, nodesData));
+})
+
+module.exports = router

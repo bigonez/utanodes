@@ -4,14 +4,8 @@ var http = require('http');
 var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
-var sqlite3 = require('better-sqlite3');
 
-var nodes = require('./nodes');
-
-// form the database name
-const dbName = __dirname + '/uta100_nodes.db3';
-// initial the database connection
-const utaDb = new sqlite3(dbName, {fileMustExist: true});
+var utanodes = require('./utanodes');
 
 // load the middlewares
 //app.use(cors())
@@ -53,17 +47,7 @@ var corsOptions = {
 }
 
 // route @ UTA Nodes, CORS enable
-app.get('/nodes', cors(corsOptions), function(req,res){
-	var finishTime = parseFloat(req.query.finishtime);
-	var reference  = parseInt(req.query.reference);
-
-	nodesData = nodes.queryNodes(utaDb, finishTime, reference)
-
-	res.json(Object.assign({
-		finishtime : finishTime,
-		 reference : reference
-	}, nodesData));
-});
+app.get('/nodes', cors(corsOptions), utanodes);
 
 // start the server
 server.listen(process.env.UTANODES_APP_PORT, function(){
