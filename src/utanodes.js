@@ -5,7 +5,7 @@ const dbName = __dirname + '/uta100_nodes.db3';
 // initial the database connection
 const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
-const queryNodes = function (utaDb, finishTime, referSet) {
+const queryNodes = (utaDb, finishTime, referSet) => {
 	// form the query
 	var nodesQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
 	if( referSet ) {
@@ -33,21 +33,18 @@ const queryNodes = function (utaDb, finishTime, referSet) {
 
 	// return the query result
 	return {
-		range : range,
-		epp   : eppData
+		finishtime : finishTime,
+		 reference : referSet,
+			 range : range,
+			   epp : eppData
 	}
 }
 
-const getNodes = function (req,res) {
+module.exports = (req, res) => {
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
-	nodesData = queryNodes(utaDb, finishTime, reference)
-
-	res.json(Object.assign({
-		finishtime : finishTime,
-		 reference : reference
-	}, nodesData));
+	res.json(
+		queryNodes(utaDb, finishTime, reference)
+	);
 }
-
-module.exports = getNodes
