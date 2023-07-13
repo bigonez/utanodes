@@ -40,7 +40,7 @@ const queryNodes = (utaDb, finishTime, referSet) => {
 	}
 }
 
-const getNodes = (req, res) => {
+module.exports = (req, res) => {
 	var finishTime = parseFloat(req.query.finishtime);
 	var reference  = parseInt(req.query.reference);
 
@@ -48,5 +48,3 @@ const getNodes = (req, res) => {
 		queryNodes(utaDb, finishTime, reference)
 	);
 }
-
-module.exports = getNodes

@@ -8,6 +8,7 @@ const server = http.createServer(app);
 
 const utanodes = require('./utanodes');
 const { appRoot, appAbout } = require('./appmethods');
+const corsOptions = require('./corsoptions');
 
 // load the middlewares
 //app.use(cors())
@@ -16,16 +17,6 @@ if (process.env.NODE_ENV == 'development') {
 
 	console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
 	app.use(requestlogger);
-}
-
-// configure the CORS options
-const corsOptions = {
-	origin: [
-		"https://utaplanner.vercel.app",
-		"http://localhost",
-		"http://localhost:8080",
-	],
-	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
 // route @ /
