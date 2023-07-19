@@ -1,13 +1,13 @@
-const sqlite3 = require('better-sqlite3');
+import sqlite3 from 'better-sqlite3';
 
 // form the database name
-const dbName = __dirname + '/uta100_nodes.db3';
+const dbName = process.cwd() + '/src/uta100_nodes.db3';
 // initial the database connection
 const utaDb = new sqlite3(dbName, {fileMustExist: true});
 
 const queryNodes = (utaDb, finishTime, referSet) => {
 	// form the query
-	var nodesQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
+	let nodesQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
 	if( referSet ) {
 		nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM ( " +
 			"SELECT id, racestamp, ABS(racestamp - :finishtime) AS rsdiff FROM uta100_athlete " +
@@ -40,9 +40,9 @@ const queryNodes = (utaDb, finishTime, referSet) => {
 	}
 }
 
-module.exports = (req, res) => {
-	var finishTime = parseFloat(req.query.finishtime);
-	var reference  = parseInt(req.query.reference);
+export default (req, res) => {
+	const finishTime = isNaN(parseFloat(req.query.finishtime)) ? 20 : parseFloat(req.query.finishtime);
+	const reference  = isNaN(parseInt(req.query.reference)) ? 0 : parseInt(req.query.reference);
 
 	res.json(
 		queryNodes(utaDb, finishTime, reference)
