@@ -16,7 +16,7 @@ import corsOptions from './corsoptions.js';
 //app.use(cors())
 if (process.env.NODE_ENV == 'development') {
 	const { default: requestlogger } = await import('./requestlogger.js');
-    
+
     console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
 	app.use(requestlogger);
 }
