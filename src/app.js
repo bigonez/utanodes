@@ -15,11 +15,10 @@ import corsOptions from './corsoptions.js';
 // load the middlewares
 //app.use(cors())
 if (process.env.NODE_ENV == 'development') {
-	await import('./requestlogger.js')
-    .then(requestlogger => {
-        console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
-		app.use(requestlogger.default);
-    });
+	const { default: requestlogger } = await import('./requestlogger.js');
+    
+    console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
+	app.use(requestlogger);
 }
 
 // route @ /
