@@ -1,6 +1,6 @@
 // configure the CORS options
 
-module.exports = {
+export default {
 	origin: [
 		"https://utaplanner.vercel.app",
 		"http://localhost",

@@ -1,6 +1,7 @@
 {
   "name": "utanodes",
   "version": "0.0.1",
+  "type": "module",
   "description": "UTA Nodes API of UTA100 Planner",
   "main": "src/app.js",
   "author": "Jun Zhang <bigonez@gmail.com>",

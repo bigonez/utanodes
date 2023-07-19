@@ -12,11 +12,11 @@ const appAbout = (req, res) => {
 		"Environment": process.env.NODE_ENV,
 		"Service Port": process.env.UTANODES_APP_PORT,
 		"Working Path": process.cwd(),
-		"Database": __dirname + process.env.UTANODES_APP_DB,
+		"Database": process.cwd() + process.env.UTANODES_APP_DB,
 	});
 };
 
-module.exports = {
+export {
     appRoot,
     appAbout
-}
+};

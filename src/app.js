@@ -1,22 +1,25 @@
-const dotenv = require('dotenv').config();
-const express = require('express');
-const http = require('http');
-const cors = require('cors');
-const router = express.Router();
+import dotenv from 'dotenv';
+const config = dotenv.config();
+
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
 const app = express();
+const router = express.Router();
 const server = http.createServer(app);
 
-const utanodes = require('./utanodes');
-const { appRoot, appAbout } = require('./appmethods');
-const corsOptions = require('./corsoptions');
+import utanodes from './utanodes.js';
+import { appRoot, appAbout } from './appmethods.js';
+import corsOptions from './corsoptions.js';
 
 // load the middlewares
 //app.use(cors())
 if (process.env.NODE_ENV == 'development') {
-	const requestlogger = require('./requestlogger');
-
-	console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
-	app.use(requestlogger);
+	await import('./requestlogger.js')
+    .then(requestlogger => {
+        console.log(`. start the server in the ${process.env.NODE_ENV} environment`);
+		app.use(requestlogger.default);
+    });
 }
 
 // route @ /
