@@ -8,10 +8,15 @@ const utaDb = new sqlite3(dbName, {fileMustExist: true});
 const queryNodes = (utaDb, finishTime, referSet) => {
     // form the query
     let nodesQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
-    if( referSet ) {
+    if(referSet > 0) {
         nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM ( " +
             "SELECT id, racestamp, ABS(racestamp - :finishtime) AS rsdiff FROM uta100_athlete " +
             "WHERE status=1 ORDER BY rsdiff LIMIT :reference)) WHERE pid >= lpid AND pid <= upid"
+    }
+    else if(referSet < 0) {
+        nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM ( " +
+            "SELECT id FROM uta100_athlete WHERE status=1 ORDER BY racestamp LIMIT :reference)) " +
+            "WHERE pid >= lpid AND pid <= upid"
     }
     else {
         nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM uta100_athlete WHERE status=1)"
@@ -24,7 +29,7 @@ const queryNodes = (utaDb, finishTime, referSet) => {
     // setup the query parameters
     const nodesPars = {
         finishtime: finishTime * 3600,
-        reference : referSet
+        reference : Math.abs(referSet)
     }
     // get the node data
     const row = nodesSTMT.get(nodesPars)
