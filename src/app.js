@@ -8,7 +8,7 @@ const app = express();
 const router = express.Router();
 const server = http.createServer(app);
 
-import utanodes from './utanodes.js';
+import racenodes from './racenodes.js';
 import { appRoot, appAbout } from './appmethods.js';
 import corsOptions from './corsoptions.js';
 
@@ -26,12 +26,12 @@ router.get('/', appRoot);
 // route @ /about
 router.get('/about', appAbout);
 // route @ UTA Nodes, CORS enable
-router.get('/nodes', cors(corsOptions), utanodes);
+router.get('/nodes', cors(corsOptions), racenodes);
 
 // inject the router into app
 app.use(router);
 
 // start the server
-server.listen(process.env.UTANODES_APP_PORT, function(){
-    console.log(". server listening on port: " + process.env.UTANODES_APP_PORT);
+server.listen(process.env.RACENODES_APP_PORT, function(){
+    console.log(". server listening on port: " + process.env.RACENODES_APP_PORT);
 });

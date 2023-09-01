@@ -10,9 +10,9 @@ const appAbout = (req, res) => {
     res.json({
         "About": "Nodes API for UTA100 Planner",
         "Environment": process.env.NODE_ENV,
-        "Service Port": process.env.UTANODES_APP_PORT,
+        "Service Port": process.env.RACENODES_APP_PORT,
         "Working Path": process.cwd(),
-        "Database": process.cwd() + process.env.UTANODES_APP_DB,
+        "Database": process.cwd() + process.env.RACENODES_APP_DB,
     });
 };
 

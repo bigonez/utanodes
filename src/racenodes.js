@@ -3,9 +3,9 @@ import sqlite3 from 'better-sqlite3';
 // form the database name
 const dbName = process.cwd() + '/src/uta100_nodes.db3';
 // initial the database connection
-const utaDb = new sqlite3(dbName, {fileMustExist: true});
+const raceDb = new sqlite3(dbName, {fileMustExist: true});
 
-const queryNodes = (utaDb, finishTime, referSet) => {
+const queryNodes = (raceDb, finishTime, referSet) => {
     // form the query
     let nodesQuery = "SELECT location, AVG(proportion) AS mean, lpid, upid FROM uta100_final_proportion"
     if(referSet > 0) {
@@ -24,7 +24,7 @@ const queryNodes = (utaDb, finishTime, referSet) => {
     nodesQuery += " GROUP BY location ORDER BY location"
 
     // prepare the query statement
-    const nodesSTMT = utaDb.prepare(nodesQuery);
+    const nodesSTMT = raceDb.prepare(nodesQuery);
 
     // setup the query parameters
     const nodesPars = {
@@ -50,6 +50,6 @@ export default (req, res) => {
     const reference  = isNaN(parseInt(req.query.reference)) ? 0 : parseInt(req.query.reference);
 
     res.json(
-        queryNodes(utaDb, finishTime, reference)
+        queryNodes(raceDb, finishTime, reference)
     );
 }
