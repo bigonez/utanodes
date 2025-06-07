@@ -1,8 +1,8 @@
 {
   "name": "utanodes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
-  "description": "UTA Nodes API of UTA100 Planner",
+  "description": "UTA Nodes API of UTA Planner",
   "main": "src/app.js",
   "author": "Jun Zhang <bigonez@gmail.com>",
   "license": "MIT",
@@ -14,13 +14,13 @@
     "node": "20.x"
   },
   "dependencies": {
-    "better-sqlite3": "^9.6.0",
+    "better-sqlite3": "^11.10.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.10"
   },
   "nodemonConfig": {
     "verbose": true,

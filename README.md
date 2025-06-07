@@ -17,7 +17,8 @@ https://utanodes.vercel.app/nodes?finishtime=[...]&reference=[...]
 
 here:
 ```
-  finishtime: expected finish time, [13, ..., 28 ]
+  event: race, 1 for UTA100, 5 for UTA Miler
+  finishtime: expected finish time, [13, ..., 28] or [19, ..., 44.5]
   reference: reference dataset, 50, 100, 150, 200 or 0 (full dataset)
 ```
 
@@ -26,7 +27,7 @@ https://vercel.com/bigonez/utanodes
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/bigonez/utanodes)
 
-## UTA 100 Planner
-Access to the frontend of UTA100 Planner to get the UTA race time schedule.
+## UTA Miler / UTA100 Planner
+Access to the frontend of UTA Planner to get the UTA races' time schedule.
 
 https://utaplanner.vercel.app

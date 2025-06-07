@@ -9,6 +9,7 @@ const router = express.Router();
 const server = http.createServer(app);
 
 import racenodes from './racenodes.js';
+import raceevent from './raceevent.js';
 import { appRoot, appAbout } from './appmethods.js';
 import corsOptions from './corsoptions.js';
 
@@ -27,6 +28,8 @@ router.get('/', appRoot);
 router.get('/about', appAbout);
 // route @ UTA Nodes, CORS enable
 router.get('/nodes', cors(corsOptions), racenodes);
+// route @ UTA Event, CORS enable
+router.get('/event', cors(corsOptions), raceevent);
 
 // inject the router into app
 app.use(router);
