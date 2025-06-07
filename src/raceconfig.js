@@ -20,7 +20,7 @@ const eventsConfig = {
     5: {  // UTA Miler
         startTimes: [300],
         minHours: 24,
-        maxHours: 42
+        maxHours: 44
     },
 
 };
