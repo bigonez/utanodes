@@ -1,19 +1,20 @@
-# Nodes API for UTA100 Planner
+## Nodes API for UTA Planner
 
-This Node.js app is the backend API for UTA100 Planner. Based on the previous race result, it'll form the proportion data by specified parameters. The UTA100 Planner will fetch these data via the API interface, then generate the race time schedule.
+This Node.js app is the backend API for UTA Planner. Based on the previous race result, it'll form the proportion data by specified parameters. The UTA Planner will fetch these data via the API interface, then generate the race time schedule.
 
-## Running Locally
+### Running Locally
 ```
-yarn install
+pnpm install
 ```
 
 #### Compile and hot-reload for development
 ```
-yarn dev
+pnpm dev
 ```
 
-## API Interface
-https://utanodes.vercel.app/nodes?finishtime=[...]&reference=[...]
+### API Interface
+1. https://utanodes.vercel.app/event?event=[...]
+2. https://utanodes.vercel.app/nodes?event=[...]&finishtime=[...]&reference=[...]
 
 here:
 ```
@@ -22,12 +23,12 @@ here:
   reference: reference dataset, 50, 100, 150, 200 or 0 (full dataset)
 ```
 
-## App Deployment and Management
-https://vercel.com/bigonez/utanodes
+### App Deployment and Management
+https://vercel.com/bigonezs-projects/utanodes
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/bigonez/utanodes)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/bigonezs-projects/utanodes)
 
-## UTA Miler / UTA100 Planner
+### UTA Planner
 Access to the frontend of UTA Planner to get the UTA races' time schedule.
 
 https://utaplanner.vercel.app
