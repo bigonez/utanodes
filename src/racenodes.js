@@ -11,17 +11,16 @@ const queryNodes = (raceDb, event, finishTime, referSet) => {
     if(referSet > 0) {
         nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM ( " +
             "SELECT id, racestamp, ABS(racestamp - :finishtime) AS rsdiff FROM uta_athlete " +
-            "WHERE status=1 AND event=:event ORDER BY rsdiff LIMIT :reference)) WHERE pid >= lpid AND pid <= upid"
+            "WHERE status=1 AND event=:event ORDER BY rsdiff LIMIT :reference))"
     }
     else if(referSet < 0) {
         nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM ( " +
-            "SELECT id FROM uta_athlete WHERE status=1 AND event=:event ORDER BY racestamp LIMIT :reference)) " +
-            "WHERE pid >= lpid AND pid <= upid"
+            "SELECT id FROM uta_athlete WHERE status=1 AND event=:event ORDER BY racestamp LIMIT :reference))"
     }
     else {
-        nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM uta_athlete WHERE status=1 AND event=:event) "
+        nodesQuery += " LEFT JOIN (SELECT MIN(id) AS lpid, MAX(id) AS upid FROM uta_athlete WHERE status=1 AND event=:event)"
     }
-    nodesQuery += " GROUP BY location ORDER BY location"
+    nodesQuery += " WHERE event=:event AND pid >= lpid AND pid <= upid GROUP BY location ORDER BY location"
 
     // prepare the query statement
     const nodesSTMT = raceDb.prepare(nodesQuery);
